@@ -44,7 +44,11 @@ class SchoolClassResource extends Resource
                     ->relationship('teacher', 'name')
                     ->searchable()
                     ->preload()
-                    ->nullable(),
+                    ->nullable()
+                    ->rule('unique:school_classes,teacher_id')
+                    ->validationMessages([
+                        'unique' => 'Guru ini sudah terdaftar sebagai wali kelas di kelas lain.',
+                    ]),
             ]);
     }
 

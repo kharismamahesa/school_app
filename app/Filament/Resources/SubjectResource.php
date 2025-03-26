@@ -33,13 +33,17 @@ class SubjectResource extends Resource
                 TextInput::make('name')
                     ->label('Mata Pelajaran')
                     ->required()
+                    ->unique()
                     ->validationMessages([
+                        'unique' => 'Nama mata pelajaran sudah digunakan',
                         'required' => 'Nama mata pelajaran wajib diisi',
                     ]),
                 TextInput::make('code')
                     ->label('Kode Mata Pelajaran')
                     ->required()
+                    ->unique()
                     ->validationMessages([
+                        'unique' => 'Kode mata pelajaran sudah digunakan',
                         'required' => 'Kode mata pelajaran wajib diisi',
                     ]),
             ]);

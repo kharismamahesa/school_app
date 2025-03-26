@@ -34,7 +34,9 @@ class TeacherResource extends Resource
                     ->validationMessages([
                         'required' => 'Nama guru wajib diisi',
                     ]),
-                TextInput::make('nip')->nullable()->unique(ignoreRecord: true)->label('NIP'),
+                TextInput::make('nip')->nullable()->unique(ignoreRecord: true)->label('NIP')->validationMessages([
+                    'unique' => 'NIP sudah digunakan',
+                ]),
                 TextInput::make('phone')->nullable()->label('No Telepon'),
                 TextInput::make('email')->nullable()->unique(ignoreRecord: true)->label('Email'),
             ]);

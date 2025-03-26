@@ -8,6 +8,7 @@ use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -16,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ColumnGroup;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
@@ -66,8 +68,22 @@ class StudentResource extends Resource
                     ])
                     ->searchable()
                     ->native(false),
-                Textarea::make('address')->label('Alamat'),
+                Select::make('gender')
+                    ->label('Jenis Kelamin')
+                    ->options([
+                        'L' => 'Laki - laki',
+                        'P' => 'Perempuan',
+                    ])
+                    ->searchable()
+                    ->native(false),
                 TextInput::make('phone')->nullable()->label('No Telepon'),
+                Textarea::make('address')->label('Alamat'),
+                FileUpload::make('photo')
+                    ->label('Foto')
+                    ->image()
+                    ->directory('students/photos')
+                    ->maxSize(2048)
+                    ->nullable(),
                 Fieldset::make('Data Orang Tua')
                     ->schema([
                         TextInput::make('father_name')->label('Nama Ayah')->required()
@@ -87,6 +103,7 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('photo')->label('Foto')->circular(),
                 TextColumn::make('name')->label('Nama')->searchable(),
                 TextColumn::make('nisn')->label('NISN')->searchable(),
                 TextColumn::make('nis')->label('NIS')->searchable(),
