@@ -16,13 +16,19 @@ class Student extends Model
         'class_id',
         'place_of_birth',
         'date_of_birth',
+        'gender',
         'religion',
         'address',
         'phone',
+        'photo',
         'father_name',
         'father_phone',
         'mother_name',
         'mother_phone',
+    ];
+
+    protected $casts = [
+        'photo' => 'array',
     ];
 
     public function schoolClass()
