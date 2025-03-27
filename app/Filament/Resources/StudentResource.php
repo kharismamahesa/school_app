@@ -81,8 +81,8 @@ class StudentResource extends Resource
                 FileUpload::make('photo')
                     ->label('Foto')
                     ->image()
-                    ->directory('students/photos')
                     ->maxSize(2048)
+                    ->directory('students/photos')
                     ->nullable(),
                 Fieldset::make('Data Orang Tua')
                     ->schema([
@@ -103,7 +103,7 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('photo')->label('Foto')->circular(),
+                ImageColumn::make('photo')->label('Foto')->circular()->width(40)->height(40),
                 TextColumn::make('name')->label('Nama')->searchable(),
                 TextColumn::make('nisn')->label('NISN')->searchable(),
                 TextColumn::make('nis')->label('NIS')->searchable(),
