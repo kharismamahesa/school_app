@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Student extends Model
 {
@@ -27,12 +28,23 @@ class Student extends Model
         'mother_phone',
     ];
 
-    protected $casts = [
-        'photo' => 'array',
-    ];
+    // protected $casts = [
+    //     'photo' => 'array',
+    // ];
 
     public function schoolClass()
     {
         return $this->belongsTo(SchoolClass::class, 'class_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($student) {
+            if ($student->photo) {
+                Storage::disk('public')->delete($student->photo);
+            }
+        });
     }
 }
